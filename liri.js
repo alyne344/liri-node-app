@@ -11,9 +11,6 @@ var Spotify = require('node-spotify-api');
 var request = require('request');
 var moment = require('moment');
 
-var spotify = new Spotify(keys.spotify);
-var client = new Twitter(keys.twitter);
-
 var command = process.argv[2];
 var argument = process.argv.slice(3).join(" ");
 
@@ -89,6 +86,13 @@ if (command === 'my-tweets') {
 
 //for my-tweets command
 function myTweets() {
+
+	var client = new Twitter({
+	  consumer_key: keys.twitterKeys.consumer_key,
+	  consumer_secret: keys.twitterKeys.consumer_secret,
+	  access_token_key: keys.twitterKeys.access_token_key,
+	  access_token_secret: keys.twitterKeys.access_token_secret
+	});
 
 	var params = {
 		screen_name: 'amylicia4',
