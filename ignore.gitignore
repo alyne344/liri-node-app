@@ -1,2 +1,13 @@
 node_modules
 .DS_Store
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# dotenv environment variables file
+.env
+.DS_Store

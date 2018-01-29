@@ -12,11 +12,12 @@ var spotifyKeys = {
   secret: '717039af6aa840a88d24ad033473e4b9',
 };
 
-// var omdbKeys = {
-// 	key: OMDB_KEY,
-// };
+var omdbKeys = {
+	key: '2cbe898f',
+};
 
 module.exports = {
 	twitterKeys,
-	// spotifyKeys
+	spotifyKeys,
+	omdbKeys
 }

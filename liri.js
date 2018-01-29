@@ -84,7 +84,7 @@ if (command === 'my-tweets') {
 	}
 }
 
-//for my-tweets command
+//Twitter Command
 function myTweets() {
 
 	var client = new Twitter({
@@ -107,11 +107,11 @@ function myTweets() {
 		if (error) {
 			return console.log('Error occurred: ' + error);
 		}
-
+		//Array to push into
 		var tweetArray = [];
 
 		for (var i = 0; i < tweets.length; i++) {
-
+			//Data to push into array
 			tweetArray.push({
 				date: tweets[i].created_at,
 				text: tweets[i].text,
@@ -120,5 +120,86 @@ function myTweets() {
 
 		console.log('Twitter Results: ')
 		console.log(tweetArray);
+	});
+}
+
+//Spotify Command
+function spotifySong(searchString) {
+
+	console.log('Getting song info for: ' + searchString);
+	//Retrieving Spotify keys
+	var spotify = new Spotify({
+		  id: keys.spotifyKeys.id,
+		  secret: keys.spotifyKeys.secret
+		});
+	//Parameters for the Search
+	var params = {
+		type: 'track',
+		query: searchString,
+		limit: 1
+	};
+	//Search from Node
+	spotify.search(params, function(error, data) {
+
+		if (error) {
+			return console.log('Error occurred: ' + error);
+		}
+		//Variable to retrieve data from Spotify
+		var topResult = data.tracks.items[0];
+		//Song info to display on terminal
+		var songInfo = {
+			artist: topResult.artists[0].name,
+			songName: topResult.name,
+			preview_link: topResult.preview_url,
+			albumName: topResult.album.name,
+		};
+		//Display of song
+		console.log('Top Spotify Result:')
+		console.log(songInfo);
+	});
+}
+
+//OMDB Command
+function movieThis(movieName) {
+
+	console.log('Getting Movie Info for: ' + movieName);
+
+	requestURL = 'https://www.omdbapi.com/?apikey=' + keys.omdbKeys.key +
+		'&t=' + movieName;
+
+	request(requestURL, function(error, response, body) {
+
+		if (error) {
+			return console.log(error);
+
+		} else if (!body) {
+			return console.log(response.statusCode, response);
+		}
+
+		body = JSON.parse(body);
+
+		// var rottenTomatoesRating = body.Ratings.find(
+		// 	obj => obj.Source === "Rotten Tomatoes"
+		// );
+
+		// if (rottenTomatoesRating) {
+		// 	rottenTomatoesRating = rottenTomatoesRating.Value;
+
+		// } else {
+		// 	rottenTomatoesRating = "not available";
+		// }
+
+		movieInfo = {
+			title: body.Title,
+			year: body.Year,
+			imdbRating: body.imdbRating,
+			// rottenTomatoesRating: rottenTomatoesRating,
+			countryOfOrigin: body.Country,
+			language: body.Language,
+			plot: body.Plot,
+			actors: body.Actors
+		}
+
+		console.log(movieInfo);
 	});
 }
