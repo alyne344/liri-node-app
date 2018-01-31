@@ -13,7 +13,7 @@ var spotifyKeys = {
 };
 
 var omdbKeys = {
-	key: '2cbe898f',
+	key: 'trilogy',
 };
 
 module.exports = {

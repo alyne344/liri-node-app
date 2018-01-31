@@ -164,8 +164,11 @@ function movieThis(movieName) {
 
 	console.log('Getting Movie Info for: ' + movieName);
 
-	requestURL = 'https://www.omdbapi.com/?apikey=' + keys.omdbKeys.key +
-		'&t=' + movieName;
+	var apikey = keys.omdbKeys.key
+
+	console.log(apikey);
+
+	requestURL = 'https://www.omdbapi.com/?&t=' + movieName + '&apikey=' + apikey;
 
 	request(requestURL, function(error, response, body) {
 
@@ -176,28 +179,19 @@ function movieThis(movieName) {
 			return console.log(response.statusCode, response);
 		}
 
-		body = JSON.parse(body);
+		parseBody = JSON.parse(body);
 
-		// var rottenTomatoesRating = body.Ratings.find(
-		// 	obj => obj.Source === "Rotten Tomatoes"
-		// );
-
-		// if (rottenTomatoesRating) {
-		// 	rottenTomatoesRating = rottenTomatoesRating.Value;
-
-		// } else {
-		// 	rottenTomatoesRating = "not available";
-		// }
+		// console.log(parseBody);
 
 		movieInfo = {
-			title: body.Title,
-			year: body.Year,
-			imdbRating: body.imdbRating,
-			// rottenTomatoesRating: rottenTomatoesRating,
-			countryOfOrigin: body.Country,
-			language: body.Language,
-			plot: body.Plot,
-			actors: body.Actors
+			title: parseBody.Title,
+			year: parseBody.Year,
+			imdbRating: parseBody.imdbRating,
+			rottenTomatoesRating: parseBody.Ratings[1].Value,
+			countryOfOrigin: parseBody.Country,
+			language: parseBody.Language,
+			plot: parseBody.Plot,
+			actors: parseBody.Actors
 		}
 
 		console.log(movieInfo);
